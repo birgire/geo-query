@@ -1,0 +1,23 @@
+{
+    "name" : "birgir/geo-query",
+    "description" : "Modify the WP_Query to support the geo_query parameter. Uses the Haversine SQL optimization by Ollie Jones.",
+    "type" : "wordpress-plugin",
+    "keywords" : [ "wordpress" ],
+    "license" : "GPL-2.0+",
+    "authors" : [
+        {
+            "name" : "Birgir Erlendsson"
+        }
+    ],
+    "require" : {
+        "composer/installers" : "~1.0.0",
+        "php" : ">=5.3.3"
+    },
+    "autoload": {
+       "psr-4": {"Birgir\\Geo\\": "src/"}
+   },
+    "extra" : {
+        "installer-name" : "geo-query"
+    }
+}
+

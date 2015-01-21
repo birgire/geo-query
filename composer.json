@@ -3,7 +3,7 @@
     "description" : "Modify the WP_Query to support the geo_query parameter. Uses the Haversine SQL optimization by Ollie Jones.",
     "type" : "wordpress-plugin",
     "keywords" : [ "wordpress" ],
-    "license" : "GPL-2.0+",
+    "license" : "MIT",
     "authors" : [
         {
             "name" : "Birgir Erlendsson"

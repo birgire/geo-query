@@ -9,7 +9,7 @@ It uses the Haversine SQL optimization by Ollie Jones (see [here](http://www.plu
 
 The plugin works on PHP 5.3+.
 
-Activate the plugin and you can use the `geo_query` parameter in all your `WP_query`.
+Activate the plugin and you can use the `geo_query` parameter in all your `WP_Query` queries.
 
 ###Example:
 
@@ -42,7 +42,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
 
  - If we want to use the optimized Haversine version by Ollie Jones, we use:
         
-         'context' => '\\Birgir\\Geo\\GeoQueryHaversineOptimzed'
+         'context' => '\\Birgir\\Geo\\GeoQueryHaversineOptimized'
 
  - If we create our own implementation of the Haversine formula, for example the `GeoQueryCustom` class, we just have to make sure it implements the `GeoQueryInterface` interface:
 

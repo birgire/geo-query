@@ -17,8 +17,8 @@ interface GeoQueryInterface
     *
     * @since 0.0.1
     *
-    * @param  string $fields
-    * @return string $fields
+    * @param  array $clauses
+    * @return array $clauses
     */
 
     public function algorithm( $clauses = array() );

@@ -21,7 +21,7 @@ class GeoQueryContext
     * @return $this
     */
 
-    public function setup( wpdb $db )
+    public function setup( \wpdb $db )
     {
         $this->db = $db;
         return $this;

@@ -11,7 +11,7 @@ namespace Birgir\Geo;
  */
 
 
-class GeoQueryHaversineOptimized extends GeoQueryHaversine implements IGeoQueryInterface
+class GeoQueryHaversineOptimized extends GeoQueryHaversine implements GeoQueryInterface
 {
     
    /**

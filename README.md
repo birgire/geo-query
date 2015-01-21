@@ -1,4 +1,4 @@
-WordPress: Geo Location Query
+WordPress plugin: Geo Query
 =================
 
 ###Description
@@ -9,9 +9,11 @@ It uses the Haversine SQL optimization by Ollie Jones (see [here](http://www.plu
 
 The plugin works on PHP 5.3+.
 
+Activate the plugin and you can use the `geo_query` parameter in all your `WP_query`.
+
 ###Example:
 
-Here's an example of the seven supported input parameters of the geo query part:
+Here's an example of the supported input parameters of the `geo_query` part:
 
     $args = array(
         'post_type'          => 'post',    
@@ -27,26 +29,28 @@ Here's an example of the seven supported input parameters of the geo query part:
             'distance_unit'      =>  111.045,                           // Default distance unit (km per degree)
             'context'            => '\\Birgir\\Geo\\GeoQueryHaversine', // Default implementation, you can use your own here instead.
         ),
-
     );
     $query = new WP_Query( $args );
 
 ###Notes on the parameters:
 
- - This assumes we store the latitudes and longitudes as custom fields ( post meta), so we need to tell the query about meta keys with the `'lat_meta_key'` and the `'lng_meta_key'` parameters.
+ - The plugin assumes we store the latitudes and longitudes as custom fields ( post meta), so we need to tell the query about meta keys with the `'lat_meta_key'` and `'lng_meta_key'` parameters.
 
  - Skipping the `'radius'` parameter means that no distance filtering will take place.
 
  - If we use the `'order'` parameter within the `'geo_query'`, then it will be prepended to the native `'orderby'` parameter.
 
- - If we want to use the optimized Haversine version, we use:
+ - If we want to use the optimized Haversine version by Ollie Jones, we use:
         
          'context' => '\\Birgir\\Geo\\GeoQueryHaversineOptimzed'
 
- - If we create our own context implementations of the Haversine formula, we have to make sure it implements the GeoQueryInterface:
+ - If we create our own implementation of the Haversine formula, for example the `GeoQueryCustom` class, we just have to make sure it implements the `GeoQueryInterface` interface:
 
          'context' => 'GeoQueryCustom'
 
+###Feedback
+
+Any suggestions are welcomed.
 
 ###Changelog
 

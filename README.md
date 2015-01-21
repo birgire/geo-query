@@ -16,27 +16,36 @@ Here's an example of the seven supported input parameters of the geo query part:
     $args = array(
         'post_type'          => 'post',    
         'posts_per_page'     => 10,
-	'orderby'            => array( 'title' => 'DESC' ),
+        'orderby'            => array( 'title' => 'DESC' ),
         'geo_query' => array(
-            'distance_unit'      =>  111.045,       // Default distance unit (km per degree) 
-            'lat_meta_key'       =>  'my_lat',      // Meta-key for the latitude data
-            'lng_meta_key'       =>  'my_lng',      // Meta-key for the longitude data 
-            'lat'                =>  64,            // Latitude point
-            'lng'                =>  22,            // Longitude point
-            'radius'             =>  150,           // Find locations within a given radius (km)
-            'order'              =>  'DESC',        // Order by distance
+            'lat'                =>  64,                                // Latitude point
+            'lng'                =>  22,                                // Longitude point
+            'lat_meta_key'       =>  'my_lat',                          // Meta-key for the latitude data
+            'lng_meta_key'       =>  'my_lng',                          // Meta-key for the longitude data 
+            'radius'             =>  150,                               // Find locations within a given radius (km)
+            'order'              =>  'DESC',                            // Order by distance
+            'distance_unit'      =>  111.045,                           // Default distance unit (km per degree)
+            'context'            => '\\Birgir\\Geo\\GeoQueryHaversine', // Default implementation, you can use your own here instead.
         ),
 
     );
     $query = new WP_Query( $args );
 
-If we: 
+###Notes on the parameters:
 
- - skip the `'radius'` parameter, then there's no distance filtering taking place.
+ - This assumes we store the latitudes and longitudes as custom fields ( post meta), so we need to tell the query about meta keys with the `'lat_meta_key'` and the `'lng_meta_key'` parameters.
 
- - skip the geo `'order'` parameter, then the native `'orderby'` parameter is used.
+ - Skipping the `'radius'` parameter means that no distance filtering will take place.
 
- - use the geo `'order'` parameter, then it will be pre-pended to the native `'orderby'` parameter.
+ - If we use the `'order'` parameter within the `'geo_query'`, then it will be prepended to the native `'orderby'` parameter.
+
+ - If we want to use the optimized Haversine version, we use:
+        
+         'context' => '\\Birgir\\Geo\\GeoQueryHaversineOptimzed'
+
+ - If we create our own context implementations of the Haversine formula, we have to make sure it implements the GeoQueryInterface:
+
+         'context' => 'GeoQueryCustom'
 
 
 ###Changelog

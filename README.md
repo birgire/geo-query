@@ -21,7 +21,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
         'orderby'            => array( 'title' => 'DESC' ),
         'geo_query' => array(
             'lat'                =>  64,                                // Latitude point
-            'lng'                =>  -22,                                // Longitude point
+            'lng'                =>  -22,                               // Longitude point
             'lat_meta_key'       =>  'my_lat',                          // Meta-key for the latitude data
             'lng_meta_key'       =>  'my_lng',                          // Meta-key for the longitude data 
             'radius'             =>  150,                               // Find locations within a given radius (km)
@@ -44,7 +44,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
         
          'context' => '\\Birgir\\Geo\\GeoQueryHaversineOptimized'
 
-   Notice that on our current plugin setup (i.e. fetching data from thet LONGTEXT post meta fields) this isn't more performant than the default `GeoQueryHaversine` class.
+   Notice that on our current plugin setup (i.e. fetching data from the LONGTEXT post meta fields) this isn't more performant than the default `GeoQueryHaversine` class.
    
    A future work could be to use a custom table with indexes, for the optimization to work.
 

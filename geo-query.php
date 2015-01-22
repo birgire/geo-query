@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Geo Query
- * Description: Modify the WP_Query to support the geo_query parameter. Uses the Haversine SQL optimizations by Ollie Jones.
+ * Description: Modify the WP_Query to support the geo_query parameter. Uses the Haversine SQL implementation by Ollie Jones.
  * Plugin URI:  https://github.com/birgire/geo-query
  * Author:	Birgir Erlendsson (birgire)
  * Version:     0.0.1

@@ -5,7 +5,7 @@ WordPress plugin: Geo Query
 
 This plugin adds a support for the `geo_query` part of the `WP_query`.
 
-It uses the Haversine SQL optimization by Ollie Jones (see [here](http://www.plumislandmedia.net/mysql/haversine-mysql-nearest-loc/)).
+It uses the Haversine SQL implementation by Ollie Jones (see [here](http://www.plumislandmedia.net/mysql/haversine-mysql-nearest-loc/)).
 
 The plugin works on PHP 5.3+.
 
@@ -21,7 +21,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
         'orderby'            => array( 'title' => 'DESC' ),
         'geo_query' => array(
             'lat'                =>  64,                                // Latitude point
-            'lng'                =>  22,                                // Longitude point
+            'lng'                =>  -22,                                // Longitude point
             'lat_meta_key'       =>  'my_lat',                          // Meta-key for the latitude data
             'lng_meta_key'       =>  'my_lng',                          // Meta-key for the longitude data 
             'radius'             =>  150,                               // Find locations within a given radius (km)
@@ -43,6 +43,11 @@ Here's an example of the supported input parameters of the `geo_query` part:
  - If we want to use the optimized Haversine version by Ollie Jones, we use:
         
          'context' => '\\Birgir\\Geo\\GeoQueryHaversineOptimized'
+
+   Notice that on our current plugin setup (i.e. fetching data from thet LONGTEXT post meta fields) this isn't more performant than the default `GeoQueryHaversine` class.
+   
+   A future work could be to use a custom table with indexes, for the optimization to work.
+
 
  - If we create our own implementation of the Haversine formula, for example the `GeoQueryCustom` class, we just have to make sure it implements the `GeoQueryInterface` interface:
 

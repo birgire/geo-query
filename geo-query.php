@@ -5,7 +5,7 @@
  * Plugin URI:        https://github.com/birgire/geo-query
  * GitHub Plugin URI: https://github.com/birgire/geo-query.git
  * Author:	      Birgir Erlendsson (birgire)
- * Version:           0.0.1
+ * Version:           0.0.2
  * Licence:           MIT
  */
 

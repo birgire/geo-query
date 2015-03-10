@@ -67,5 +67,7 @@ Any suggestions are welcomed.
 0.0.2 (2015-03-10)
 
 - Added: Support for the GitHub Updater.
+- Updated: README.md
+- Changed: Use distance_value instead of distance_in_km in SQL, since we can use miles by changing the distance_unit parameter.
 
 0.0.1 - Init

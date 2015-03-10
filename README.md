@@ -9,6 +9,8 @@ It uses the Haversine SQL implementation by Ollie Jones (see [here](http://www.p
 
 The plugin works on PHP 5.3+.
 
+It supports the GitHub Updater.
+
 Activate the plugin and you can use the `geo_query` parameter in all your `WP_Query` queries.
 
 ###Example:
@@ -16,9 +18,10 @@ Activate the plugin and you can use the `geo_query` parameter in all your `WP_Qu
 Here's an example of the supported input parameters of the `geo_query` part:
 
     $args = array(
-        'post_type'          => 'post',    
-        'posts_per_page'     => 10,
-        'orderby'            => array( 'title' => 'DESC' ),
+        'post_type'           => 'post',    
+        'posts_per_page'      => 10,
+        'ignore_sticky_posts' => true,
+        'orderby'             => array( 'title' => 'DESC' ),
         'geo_query' => array(
             'lat'                =>  64,                                // Latitude point
             'lng'                =>  -22,                               // Longitude point
@@ -26,7 +29,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
             'lng_meta_key'       =>  'my_lng',                          // Meta-key for the longitude data 
             'radius'             =>  150,                               // Find locations within a given radius (km)
             'order'              =>  'DESC',                            // Order by distance
-            'distance_unit'      =>  111.045,                           // Default distance unit (km per degree)
+            'distance_unit'      =>  111.045,                           // Default distance unit (km per degree). Use 69.0 for statute miles per degree.
             'context'            => '\\Birgir\\Geo\\GeoQueryHaversine', // Default implementation, you can use your own here instead.
         ),
     );
@@ -39,6 +42,8 @@ Here's an example of the supported input parameters of the `geo_query` part:
  - Skipping the `'radius'` parameter means that no distance filtering will take place.
 
  - If we use the `'order'` parameter within the `'geo_query'`, then it will be prepended to the native `'orderby'` parameter.
+
+ - The `'distance_unit'` parameter should be `69.0` for distance in statute miles, else `111.045` for distance in kilometers.
 
  - If we want to use the optimized Haversine version by Ollie Jones, we use:
         
@@ -58,5 +63,9 @@ Here's an example of the supported input parameters of the `geo_query` part:
 Any suggestions are welcomed.
 
 ###Changelog
+
+0.0.2 (2015-03-10)
+
+- Added: Support for the GitHub Updater.
 
 0.0.1 - Init

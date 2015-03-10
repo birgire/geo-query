@@ -103,7 +103,7 @@ class GeoQueryHaversine extends GeoQueryAbstract implements GeoQueryInterface
                  * COS( RADIANS( mtlat.meta_value ) )
                  * COS( RADIANS( settings.longpoint ) - RADIANS( mtlng.meta_value ) )
                  + SIN( RADIANS( settings.latpoint ) )
-                 * SIN( RADIANS( mtlat.meta_value )))) AS distance_in_km ";
+                 * SIN( RADIANS( mtlat.meta_value )))) AS distance_value ";
 
         return $fields;
     }
@@ -139,7 +139,7 @@ class GeoQueryHaversine extends GeoQueryAbstract implements GeoQueryInterface
             $groupby = " {$this->db->posts}.ID ";
 
         $groupby .= $this->db->prepare(
-            " HAVING distance_in_km <= %d ",
+            " HAVING distance_value <= %d ",
             $this->radius
         );
 
@@ -191,7 +191,7 @@ class GeoQueryHaversine extends GeoQueryAbstract implements GeoQueryInterface
 
     protected function posts_orderby( $orderby )
     {
-     	return ' distance_in_km ' . $this->order . ', ' . $orderby;
+     	return ' distance_value ' . $this->order . ', ' . $orderby;
     }
 
 

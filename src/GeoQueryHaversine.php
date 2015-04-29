@@ -34,7 +34,7 @@ class GeoQueryHaversine extends GeoQueryAbstract implements GeoQueryInterface
     
     public function setup( \wpdb $db, $geo_query = array() )
     {
-     	$this->$db = $db;
+     	$this->db = $db;
 
         // Default user input:
         $default = array(                                        
@@ -50,7 +50,6 @@ class GeoQueryHaversine extends GeoQueryAbstract implements GeoQueryInterface
         $geo_query = wp_parse_args( $geo_query, $default );
 
          // Sanitize the user input:
-         $this->db            = $GLOBALS['wpdb'];
          $this->lat_meta_key  = sanitize_key( $geo_query['lat_meta_key'] );
          $this->lng_meta_key  = sanitize_key( $geo_query['lng_meta_key'] );
          $this->lat           = floatval( $geo_query['lat'] );

@@ -63,6 +63,9 @@ Here's an example of the supported input parameters of the `geo_query` part:
 Any suggestions are welcomed.
 
 ###Changelog
+0.0.3 (2015-04-29)
+
+- Fixed #2. Fixed a typo. Probs @Ben764 and @con322.
 
 0.0.2 (2015-03-10)
 

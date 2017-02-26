@@ -16,7 +16,7 @@ class GeoQueryHaversine extends GeoQueryAbstract implements GeoQueryInterface
     private $db;
     private $lat;
     private $lng;
-    private $lag_meta_key;
+    private $lat_meta_key;
     private $lng_meta_key;
     private $distance_unit;
     private $radius;

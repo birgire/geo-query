@@ -36,11 +36,12 @@ add_action( 'init', function()
         require_once  __DIR__ . '/src/GeoQueryHaversineOptimized.php';
     }
 
-	// Active
     if( class_exists( __NAMESPACE__ . '\\GeoQueryContext' ) )
     {
-     	$o = new GeoQueryContext();
-        $o->setup( $GLOBALS['wpdb'] )->activate();
+		// Active
+		
+     	$geo_query = new GeoQueryContext();
+        $geo_query->setup( $GLOBALS['wpdb'] )->activate();
     }
 
 });

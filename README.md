@@ -13,6 +13,24 @@ It supports the GitHub Updater.
 
 Activate the plugin and you can use the `geo_query` parameter in all your `WP_Query` queries.
 
+###Installation
+
+Upload the plugin to the plugin folder and activate it.
+
+To install dependencies with Composer (not required):
+
+    composer install
+
+or
+
+    php composer.phar install
+	
+within our folder. See here for more information on how to install Composer.
+
+Then play with the example below, in your theme or in a plugin.
+
+Have fun ;-)
+
 ###Example:
 
 Here's an example of the supported input parameters of the `geo_query` part:
@@ -63,6 +81,11 @@ Here's an example of the supported input parameters of the `geo_query` part:
 Any suggestions are welcomed.
 
 ###Changelog
+0.0.5 (2017-02-26)
+
+- Added fallback for those that don't use Composer
+- Removed the vendor directory
+
 0.0.4 (2017-02-26)
 
 - Fixed #4. Props @billzhong .

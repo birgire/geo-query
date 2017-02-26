@@ -12,21 +12,13 @@
 namespace Birgir\Geo;
 
 /**
- * Autoload
- */
-
-add_action( 'plugins_loaded', function()
-{
-    require __DIR__ . '/vendor/autoload.php';
-});
-
-
-/**
  * Init
  */
 
 add_action( 'init', function()
 {    
+	// Load classes
+	
     if ( file_exists( __DIR__ . '/vendor/autoload.php' ) )
     {
 		// Composer autoload
@@ -40,10 +32,11 @@ add_action( 'init', function()
         require_once  __DIR__ . '/src/GeoQueryAbstract.php';
         require_once  __DIR__ . '/src/GeoQueryInterface.php';
         require_once  __DIR__ . '/src/GeoQueryContext.php';
-        require_once  __DIR__ . '/src/GeoQueryHaversineOptimized.php';
         require_once  __DIR__ . '/src/GeoQueryHaversine.php';
+        require_once  __DIR__ . '/src/GeoQueryHaversineOptimized.php';
     }
 
+	// Active
     if( class_exists( __NAMESPACE__ . '\\GeoQueryContext' ) )
     {
      	$o = new GeoQueryContext();

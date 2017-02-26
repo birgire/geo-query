@@ -40,8 +40,8 @@ add_action( 'init', function()
     {
 		// Active
 		
-     	$geo_query = new GeoQueryContext();
-        $geo_query->setup( $GLOBALS['wpdb'] )->activate();
+     	$geo_query_context = new GeoQueryContext();
+        $geo_query_context->setup( $GLOBALS['wpdb'] )->activate();
     }
 
 });

@@ -138,7 +138,7 @@ class GeoQueryHaversine extends GeoQueryAbstract implements GeoQueryInterface
             $groupby = " {$this->db->posts}.ID ";
 
         $groupby .= $this->db->prepare(
-            " HAVING distance_value <= %d ",
+            " HAVING distance_value <= %f ",
             $this->radius
         );
 

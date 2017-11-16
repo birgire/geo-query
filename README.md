@@ -1,7 +1,7 @@
 WordPress plugin: Geo Query
 =================
 
-###Description
+### Description
 
 This plugin adds a support for the `geo_query` part of the `WP_query`.
 
@@ -13,7 +13,7 @@ It supports the GitHub Updater.
 
 Activate the plugin and you can use the `geo_query` parameter in all your `WP_Query` queries.
 
-###Installation
+### Installation
 
 Upload the plugin to the plugin folder and activate it.
 
@@ -31,7 +31,7 @@ Then play with the example below, in your theme or in a plugin.
 
 Have fun ;-)
 
-###Example:
+### Example:
 
 Here's an example of the supported input parameters of the `geo_query` part:
 
@@ -53,7 +53,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
     );
     $query = new WP_Query( $args );
 
-###Notes on the parameters:
+### Notes on the parameters:
 
  - The plugin assumes we store the latitudes and longitudes as custom fields ( post meta), so we need to tell the query about meta keys with the `'lat_meta_key'` and `'lng_meta_key'` parameters.
 
@@ -76,11 +76,16 @@ Here's an example of the supported input parameters of the `geo_query` part:
 
          'context' => 'GeoQueryCustom'
 
-###Feedback
+### Feedback
 
 Any suggestions are welcomed.
 
-###Changelog
+### Changelog
+
+0.0.6 (2017-11-16)
+- Fixed #6. Support floating point radius. Props @wujekbogdan
+- Added integration tests.
+
 0.0.5 (2017-02-26)
 
 - Added fallback for those that don't use Composer

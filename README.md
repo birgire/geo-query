@@ -2,8 +2,8 @@ WordPress plugin: Geo Query
 =================
 
 [![Build Status](https://travis-ci.org/birgire/geo-query.svg?branch=master)](https://travis-ci.org/birgire/geo-query)
-
 [![GitHub license](https://img.shields.io/github/license/birgire/geo-query.svg)](https://github.com/birgire/geo-query/blob/master/LICENCE)
+[![Packagist](https://img.shields.io/packagist/v/birgir/geo-query.svg)](https://packagist.org/packages/birgir/geo-query)
 
 
 ### Description

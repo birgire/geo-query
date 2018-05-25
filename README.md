@@ -38,7 +38,7 @@ Then play with the example below, in your theme or in a plugin.
 
 Have fun ;-)
 
-### Example - Basic usage:
+### Example - Basic `WP_Query` usage:
 
 Here's an example of the supported input parameters of the `geo_query` part:
 
@@ -60,7 +60,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
     );
     $query = new WP_Query( $args );
 
-### Example - Rest API:
+### Example - Rest API usage:
 
 Here's a modified example from @florianweich:
 
@@ -71,7 +71,7 @@ Here's a modified example from @florianweich:
 	add_filter( 'rest_post_query', function( $args, $request ) {
 		$geo = json_decode( $request->get_param( 'geo_location' ) );
 		if ( isset( $geo->lat, $geo->lng ) ) {
-			$args['geo_query'] = array(
+			$args['geo_location'] = array(
 				'lat'                =>  (float) $geo->lat,
 				'lng'                =>  (float) $geo->lng,
 				'lat_meta_key'       =>  'geo_lat',
@@ -82,7 +82,7 @@ Here's a modified example from @florianweich:
 		return $args;
 	}, 10, 2 );
 
-We can test it with e.g.:
+Test it with:
 
 	https://example.com/wp-json/wp/v2/posts?geo_location={"lat":"64.128288","lng":"-21.827774","radius":"50"}
 

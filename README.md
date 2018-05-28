@@ -46,8 +46,8 @@ Here's an example of the supported input parameters of the `geo_query` part:
         'post_type'           => 'post',    
         'posts_per_page'      => 10,
         'ignore_sticky_posts' => true,
-        'orderby'             => array( 'title' => 'DESC' ),
-        'geo_query' => array(
+        'orderby'             => [ 'title' => 'DESC' ],
+        'geo_query'           => [
             'lat'                =>  64,                                // Latitude point
             'lng'                =>  -22,                               // Longitude point
             'lat_meta_key'       =>  'geo_lat',                         // Meta-key for the latitude data
@@ -56,7 +56,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
             'order'              =>  'DESC',                            // Order by distance
             'distance_unit'      =>  111.045,                           // Default distance unit (km per degree). Use 69.0 for statute miles per degree.
             'context'            => '\\Birgir\\Geo\\GeoQueryHaversine', // Default implementation, you can use your own here instead.
-        ),
+        ],
     );
     $query = new WP_Query( $args );
 
@@ -71,13 +71,13 @@ Here's a modified example from @florianweich:
 	add_filter( 'rest_post_query', function( $args, $request ) {
 		$geo = json_decode( $request->get_param( 'geo_location' ) );
 		if ( isset( $geo->lat, $geo->lng ) ) {
-			$args['geo_query'] = array(
+			$args['geo_query'] = [
 				'lat'                =>  (float) $geo->lat,
 				'lng'                =>  (float) $geo->lng,
 				'lat_meta_key'       =>  'geo_lat',
 				'lng_meta_key'       =>  'geo_lng',
 				'radius'             =>  ($geo->radius) ? (float) $geo->radius : 50,
-			);
+			];
 		}
 		return $args;
 	}, 10, 2 );

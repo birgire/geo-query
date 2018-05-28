@@ -42,7 +42,7 @@ Have fun ;-)
 
 Here's an example of the supported input parameters of the `geo_query` part:
 
-    $args = array(
+    $args = [
         'post_type'           => 'post',    
         'posts_per_page'      => 10,
         'ignore_sticky_posts' => true,
@@ -57,7 +57,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
             'distance_unit'      =>  111.045,                           // Default distance unit (km per degree). Use 69.0 for statute miles per degree.
             'context'            => '\\Birgir\\Geo\\GeoQueryHaversine', // Default implementation, you can use your own here instead.
         ],
-    );
+    ];
     $query = new WP_Query( $args );
 
 ### Example - Rest API usage:
@@ -65,7 +65,7 @@ Here's an example of the supported input parameters of the `geo_query` part:
 Here's a modified example from @florianweich:
 
 	add_filter( 'rest_query_vars', function ( $valid_vars ) {
-		return array_merge( $valid_vars, array( 'geo_location' ) );
+		return array_merge( $valid_vars, [ 'geo_location' ] );
 	} );
 
 	add_filter( 'rest_post_query', function( $args, $request ) {

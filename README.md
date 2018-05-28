@@ -71,7 +71,7 @@ Here's a modified example from @florianweich:
 	add_filter( 'rest_post_query', function( $args, $request ) {
 		$geo = json_decode( $request->get_param( 'geo_location' ) );
 		if ( isset( $geo->lat, $geo->lng ) ) {
-			$args['geo_location'] = array(
+			$args['geo_query'] = array(
 				'lat'                =>  (float) $geo->lat,
 				'lng'                =>  (float) $geo->lng,
 				'lat_meta_key'       =>  'geo_lat',
@@ -82,11 +82,11 @@ Here's a modified example from @florianweich:
 		return $args;
 	}, 10, 2 );
 
-Test it with:
+Test it with e.g.:
 
 	https://example.com/wp-json/wp/v2/posts?geo_location={"lat":"64.128288","lng":"-21.827774","radius":"50"}
 
-One can use `rest_{CPT}_query` filter for a custom post type.
+One can use `rest_{custom-post-type-slug}_query` filter for a custom post type.
 
 
 ### Notes on the parameters:

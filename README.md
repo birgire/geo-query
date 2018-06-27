@@ -118,6 +118,9 @@ Any suggestions are welcomed.
 
 ### Changelog
 
+0.0.7 (2018-06-27)
+- Fixed #10. Use ^1.0.0 for composer installer. Props @wujekbogdan
+
 0.0.6 (2017-11-16)
 - Fixed #6. Support floating point radius. Props @wujekbogdan
 - Added integration tests.

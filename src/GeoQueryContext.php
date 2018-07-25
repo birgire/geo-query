@@ -64,20 +64,8 @@ class GeoQueryContext
             // Run this filter callback only once:
             remove_filter( current_filter(), array( $this, __FUNCTION__ ) );
 
-            // Default implementation:
-            $class = __NAMESPACE__ . '\\GeoQueryHaversine';
-
-            // Check if the user wants another implementation:
-            if( ! empty( $geo_query['context'] ) )
-                $class = preg_replace( '/[^a-z0-9\\\]+/i', '', $geo_query['context'] );
-
-            // Create an implementation instance, if the class exists and implements the GeoQueryInterface interface:
-            if( class_exists( $class ) && in_array( __NAMESPACE__ . '\\GeoQueryInterface', class_implements( $class ) ) )
-            {
-                $g = new $class;
-                $g->setup( $this->db, $geo_query );
-                $clauses = $g->algorithm( $clauses );
-            }
+            // Filter the query clauses:
+            $clauses = $this->get_query_clauses( $geo_query, $clauses );
         }
         return $clauses;
     }

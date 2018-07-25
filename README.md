@@ -118,6 +118,9 @@ Any suggestions are welcomed.
 
 ### Changelog
 
+0.0.8 (Future)
+- Added support for user queries. Props @acobster
+
 0.0.7 (2018-06-27)
 - Fixed #10. Use ^1.0.0 for composer installer. Props @wujekbogdan
 

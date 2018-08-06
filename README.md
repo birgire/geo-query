@@ -8,7 +8,7 @@ WordPress plugin: Geo Query
 
 ### Description
 
-This plugin adds a support for the `geo_query` part of the `WP_query`.
+This plugin adds a support for the `geo_query` part of the `WP_Query` and `WP_User_Query`.
 
 It uses the Haversine SQL implementation by Ollie Jones (see [here](http://www.plumislandmedia.net/mysql/haversine-mysql-nearest-loc/)).
 
@@ -16,7 +16,7 @@ The plugin works on PHP 5.3+.
 
 It supports the GitHub Updater.
 
-Activate the plugin and you can use the `geo_query` parameter in all your `WP_Query` queries.
+Activate the plugin and you can use the `geo_query` parameter in all your `WP_Query` and `WP_User_Query` queries.
 
 Few examples are here below, e.g. for the Rest API.
 
@@ -88,6 +88,24 @@ Test it with e.g.:
 
 One can use `rest_{custom-post-type-slug}_query` filter for a custom post type.
 
+### Example - Basic `WP_User_Query` usage:
+
+Here's an example from @acobster:
+
+    $args = [
+      'role'      => 'subscriber',
+      'geo_query' => [
+        'lat'          => 47.236,
+        'lng'          => -122.435,
+        'lat_meta_key' => 'geo_lat',
+        'lng_meta_key' => 'geo_lng',
+        'radius'       => 1,
+        'context'      => '\\Birgir\\Geo\\GeoQueryUserHaversine',
+      ],
+    ];
+
+    $query = new WP_User_Query( $args );
+
 
 ### Notes on the parameters:
 
@@ -117,6 +135,9 @@ One can use `rest_{custom-post-type-slug}_query` filter for a custom post type.
 Any suggestions are welcomed.
 
 ### Changelog
+
+0.1.0 (2018-08-06)
+- Added support for user queries. Props @acobster
 
 0.0.7 (2018-06-27)
 - Fixed #10. Use ^1.0.0 for composer installer. Props @wujekbogdan

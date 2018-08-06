@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 notifications:
@@ -16,8 +14,13 @@ cache:
     - vendor
     - $HOME/.composer/cache
 
+install:
+  - composer install --prefer-dist
+
 matrix:
   include:
+    - php: 7.2
+      env: WP_VERSION=latest
     - php: 7.1
       env: WP_VERSION=latest
     - php: 7.0

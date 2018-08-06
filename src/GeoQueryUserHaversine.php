@@ -7,7 +7,7 @@ namespace Birgir\Geo;
  *
  * @uses the Ollie Jones Haversine SQL query: http://www.plumislandmedia.net/mysql/haversine-mysql-nearest-loc/
  *
- * @since 0.0.8
+ * @since 0.1.0
  */
 
 
@@ -25,7 +25,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
    /**
     * Setup - let's implement the interface
     *
-    * @since 0.0.8
+    * @since 0.1.0
     *
     * @param  wpdb     $db         An instance of the wpdb class
     * @param  array    $geo_query  The geo_query part of the WP_Query
@@ -63,7 +63,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
    /**
     * Algorithm - let's implement the interface
     *
-    * @since 0.0.8
+    * @since 0.1.0
     *
     * @param  array    $clauses
     * @return array    $clauses
@@ -88,7 +88,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
    /**
     * Modify the SQL for the fields clause
     *
-    * @since 0.0.8
+    * @since 0.1.0
     *
     * @param  string $fields
     * @return string $fields
@@ -110,7 +110,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
    /**
     * Modify the SQL for the where clause
     *
-    * @since 0.0.8
+    * @since 0.1.0
     *
     * @param  string $where
     * @return string $where
@@ -139,7 +139,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
    /**
     * Modify the SQL for the HAVING clause
     *
-    * @since 0.0.8
+    * @since 0.1.0
     *
     * @return string $having
     */
@@ -156,7 +156,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
    /**
     * Modify the SQL for the FROM/JOIN clauses
     *
-    * @since 0.0.8
+    * @since 0.1.0
     *
     * @param  string $from
     * @return string $from
@@ -189,7 +189,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
    /**
     * Modify the SQL for the orderby clause
     *
-    * @since 0.0.8
+    * @since 0.1.0
     *
     * @param  string $orderby
     * @return string $orderby

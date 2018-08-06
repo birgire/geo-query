@@ -5,7 +5,7 @@ namespace Birgir\Geo;
 /**
  * The Geo Query class
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 
 
@@ -29,9 +29,10 @@ class GeoQueryContext
 
    
    /**
-    * Add the posts_clauses filter
+    * Add posts_clauses and pre_user_query filters.
     *
     * @since 0.0.1
+	* @since 0.1.0 Adds the pre_user_query filter.
     *
     * @return void
     */

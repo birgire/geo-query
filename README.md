@@ -138,6 +138,7 @@ Any suggestions are welcomed.
 
 0.1.0 (2018-08-06)
 - Added support for user queries. Props @acobster
+- Fixed Travis issue. Travis runs successfully for PHP 7.2, 7.1,7,5.6 when installed via Composer and also 5.4 when installed without Composer. Skip the 5.4 Composer check for now.
 
 0.0.7 (2018-06-27)
 - Fixed #10. Use ^1.0.0 for composer installer. Props @wujekbogdan

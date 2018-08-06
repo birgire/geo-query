@@ -14,9 +14,6 @@ cache:
     - vendor
     - $HOME/.composer/cache
 
-install:
-  - composer install --prefer-dist
-
 matrix:
   include:
     - php: 7.2

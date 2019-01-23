@@ -135,6 +135,8 @@ Here's an example from @acobster:
 Any suggestions are welcomed.
 
 ### Changelog
+0.1.1 (2019-01-23)
+- Fixed #14. Fixed the user query ordering. Props @baden03
 
 0.1.0 (2018-08-06)
 - Added support for user queries. Props @acobster

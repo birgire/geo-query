@@ -81,7 +81,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
          if( $this->order )
              $clauses['orderby'] = $this->users_orderby( $orderby );
 
-        return $clauses;
+		 return $clauses;
     }
 
 
@@ -185,7 +185,6 @@ class GeoQueryUserHaversine implements GeoQueryInterface
         return $from;
     }
 
-
    /**
     * Modify the SQL for the orderby clause
     *
@@ -197,7 +196,7 @@ class GeoQueryUserHaversine implements GeoQueryInterface
 
     protected function users_orderby( $orderby )
     {
-     	return ' distance_value ' . $this->order . ', ' . $orderby;
+     	return ' ORDER BY distance_value ' . $this->order . ', ' . str_replace( 'ORDER BY ', '', $orderby );
     }
 
 

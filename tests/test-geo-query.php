@@ -272,45 +272,113 @@ class Test_Geo_Query extends WP_UnitTestCase {
 		$this->assertSame( 1881 , (int) $query->posts[0]->distance_value );
 	}
 
-  public function test_1_km_user_query() {
-    $u1 = self::factory()->user->create( array(
-      'first_name' => 'Site',
-      'last_name'  => 'Crafting',
-    ));
-    add_user_meta( $u1, 'my_lat', 47.236567 );
-    add_user_meta( $u1, 'my_lng', -122.4357428 );
+	/**
+	 * Tests for applying a geo query on users.
+	 */
+	public function test_1_km_user_query() {
+		$u1 = self::factory()->user->create( array(
+			'first_name' => 'Site',
+			'last_name'  => 'Crafting',
+		));
+		add_user_meta( $u1, 'my_lat', 47.236567 );
+		add_user_meta( $u1, 'my_lng', -122.4357428 );
 
-    $u2 = self::factory()->user->create( array(
-      'first_name' => 'Point',
-      'last_name'  => 'Defiance',
-    ));
-    add_user_meta( $u2, 'my_lat', 47.3048779 );
-    add_user_meta( $u2, 'my_lng', -122.5230098 );
+		$u2 = self::factory()->user->create( array(
+			'first_name' => 'Point',
+			'last_name'  => 'Defiance',
+		));
+		add_user_meta( $u2, 'my_lat', 47.3048779 );
+		add_user_meta( $u2, 'my_lng', -122.5230098 );
 
-    $u3 = self::factory()->user->create( array(
-      'first_name' => 'Space',
-      'last_name'  => 'Needle',
-    ));
-    add_user_meta( $u3, 'my_lat', 47.6205099 );
-    add_user_meta( $u3, 'my_lng', -122.3514661 );
+		$u3 = self::factory()->user->create( array(
+			'first_name' => 'Space',
+			'last_name'  => 'Needle',
+		));
+		add_user_meta( $u3, 'my_lat', 47.6205099 );
+		add_user_meta( $u3, 'my_lng', -122.3514661 );
 
-    $args = array(
-      'role'      => 'subscriber',
-      'geo_query' => array(
-        'lat'          => 47.236,
-        'lng'          => -122.435,
-        'lat_meta_key' => 'my_lat',
-        'lng_meta_key' => 'my_lng',
-        'radius'       => 1,
-        'context'      => '\\Birgir\\Geo\\GeoQueryUserHaversine',
-      ),
-    );
+		$args = array(
+			'role'      => 'subscriber',
+			'geo_query' => array(
+				'lat'          => 47.236,
+				'lng'          => -122.435,
+				'lat_meta_key' => 'my_lat',
+				'lng_meta_key' => 'my_lng',
+				'radius'       => 1,
+				'context'      => '\\Birgir\\Geo\\GeoQueryUserHaversine',
+			),
+		);
 
-    $query = new WP_User_Query( $args );
+		$query = new WP_User_Query( $args );
 
-    $this->assertSame( 1, count($query->results) );
-    $this->assertSame( 'Site', $query->results[0]->first_name );
-  }
+		$this->assertCount( 1, $query->results );
+		$this->assertSame( 'Site', $query->results[0]->first_name );
+	}
+
+	/**
+	 * Tests for query ordering when applying a geo query on users.
+	 *
+	 * @ticket 14
+	 */
+	public function test_user_query_ordering() {
+		$u1 = self::factory()->user->create( array(
+			'display_name' => 'B - Site Crafting',
+		));
+		add_user_meta( $u1, 'my_lat', 47.236567 );
+		add_user_meta( $u1, 'my_lng', -122.4357428 );
+
+		$u2 = self::factory()->user->create( array(
+			'display_name' => 'A - Site Crafting',
+		));
+		add_user_meta( $u2, 'my_lat', 47.236567 );
+		add_user_meta( $u2, 'my_lng', -122.4357428 );
+
+		$u3 = self::factory()->user->create( array(
+			'display_name' => 'A - Point Defiance',
+		));
+		add_user_meta( $u3, 'my_lat', 47.3048779 );
+		add_user_meta( $u3, 'my_lng', -122.5230098 );
+
+		$u4 = self::factory()->user->create( array(
+			'display_name' => 'B - Point Defiance',
+		));
+		add_user_meta( $u4, 'my_lat', 47.3048779 );
+		add_user_meta( $u4, 'my_lng', -122.5230098 );
+
+		$u5 = self::factory()->user->create( array(
+			'display_name' => 'Space Needle',
+		));
+		add_user_meta( $u5, 'my_lat', 47.6205099 );
+		add_user_meta( $u5, 'my_lng', -122.3514661 );
+
+		$args = array(
+			'role'      => 'subscriber',
+			'geo_query' => array(
+				'lat'          => 47.236,
+				'lng'          => -122.435,
+				'lat_meta_key' => 'my_lat',
+				'lng_meta_key' => 'my_lng',
+				'radius'       => 40, // Exclude Space Needle.
+				'context'      => '\\Birgir\\Geo\\GeoQueryUserHaversine',
+				'order'        => 'DESC',
+			),
+			'orderby'     => 'display_name',
+			'order'       => 'ASC',
+		);
+
+		$query = new WP_User_Query( $args );
+
+		$this->assertCount( 4, $query->results );
+		$this->assertSame(
+			array( 'A - Point Defiance', 'B - Point Defiance', 'A - Site Crafting', 'B - Site Crafting' ),
+			array(
+				$query->results[0]->display_name,
+				$query->results[1]->display_name,
+				$query->results[2]->display_name,
+				$query->results[3]->display_name,
+			)
+		);
+	}
 
 	/**
 	 * Callback to apply a geo query.

@@ -5,7 +5,7 @@
  * Plugin URI:          https://github.com/birgire/geo-query
  * GitHub Plugin URI:   https://github.com/birgire/geo-query.git
  * Author:              Birgir Erlendsson (birgire)
- * Version:             0.1.1
+ * Version:             0.2.0
  * Licence:             MIT
  */
 
@@ -32,6 +32,7 @@ add_action( 'init', function()
         require_once  __DIR__ . '/src/GeoQueryHaversine.php';
         require_once  __DIR__ . '/src/GeoQueryUserHaversine.php';
         require_once  __DIR__ . '/src/GeoQueryHaversineOptimized.php';
+        require_once  __DIR__ . '/src/GeoQueryPostCustomTableHaversine.php';
     }
 
     if( class_exists( __NAMESPACE__ . '\\GeoQueryContext' ) )

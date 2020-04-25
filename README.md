@@ -10,6 +10,8 @@ WordPress plugin: Geo Query
 
 This plugin adds a support for the `geo_query` part of the `WP_Query` and `WP_User_Query`.
 
+Supports geo data stored in post/user meta or in a custom table.
+
 It uses the Haversine SQL implementation by Ollie Jones (see [here](http://www.plumislandmedia.net/mysql/haversine-mysql-nearest-loc/)).
 
 The plugin works on PHP 5.3+.
@@ -19,6 +21,7 @@ It supports the GitHub Updater.
 Activate the plugin and you can use the `geo_query` parameter in all your `WP_Query` and `WP_User_Query` queries.
 
 Few examples are here below, e.g. for the Rest API.
+
 
 ### Installation
 
@@ -40,7 +43,7 @@ Have fun ;-)
 
 ### Example - Basic `WP_Query` usage:
 
-Here's an example of the supported input parameters of the `geo_query` part:
+Here's an example of the default input parameters of the `geo_query` part:
 
     $args = [
         'post_type'           => 'post',    
@@ -106,6 +109,30 @@ Here's an example from @acobster:
 
     $query = new WP_User_Query( $args );
 
+### Example - Basic `WP_Query` usage for fetching lat/lng data from a custom table with Haversine formula:
+
+	$args = array(
+	   	'post_type'           => 'post',    
+	   	'posts_per_page'      => 10,
+	   	'ignore_sticky_posts' => true,
+	   	'orderby'             => array( 'title' => 'DESC' ),		    
+		'geo_query' => array(
+			'table'         => 'custom_table', // Table name for the geo custom table.
+			'pid_col'       => 'pid',          // Column name for the post ID data
+			'lat_col'       => 'lat',          // Column name for the latitude data
+			'lng_col'       => 'lng',          // Column name for the longitude data 
+			'lat'           => 64.0,           // Latitude point
+			'lng'           => -22.0,          // Longitude point
+			'radius'        => 1,              // Find locations within a given radius (km)
+			'order'         => 'DESC',         // Order by distance
+			'distance_unit' => 111.045,        // Default distance unit (km per degree). Use 69.0 for statute miles per degree.
+			'context'       => '\\Birgir\\Geo\\GeoQueryPostCustomTableHaversine', // Custom table implementation, you can use your own here instead.
+		),
+	);
+
+	$query = new WP_Query( $args );
+
+Check the unit test method `test_custom_table_in_wp_query()` as a more detailed example.
 
 ### Notes on the parameters:
 
@@ -135,6 +162,9 @@ Here's an example from @acobster:
 Any suggestions are welcomed.
 
 ### Changelog
+0.2.0 (2020-04-25)
+- Support for fetching points from a custom table and doing Haversine formula in WP_Query.
+
 0.1.1 (2019-01-23)
 - Fixed #14. Fixed the user query ordering. Props @baden03
 

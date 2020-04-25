@@ -11,6 +11,90 @@
 class Test_Geo_Query extends WP_UnitTestCase {
 
 	/**
+	 * Tests fetching points from custom table in WP_Query.
+	 *
+	 */
+	public function test_custom_table_in_wp_query() {
+		global $wpdb;
+		$charset_collate = $wpdb->get_charset_collate();
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+		$table_name = $wpdb->prefix . 'custom_table';
+		$sql = "CREATE TABLE $table_name (
+			 id bigint(20) NOT NULL AUTO_INCREMENT,
+			 pid bigint(20) NOT NULL,
+			 lat decimal(10,8) NOT NULL,
+			 lng decimal(11,8) NOT NULL,
+			 PRIMARY KEY (id)
+		 ) ENGINE=InnoDB $charset_collate;";
+		 dbDelta( $sql );
+		 
+		$points = array(
+			(object) array( 
+				'title' => 'Reykjavik #1', 
+				'lat' => 64,
+				'lng'=> -22.001
+			), 
+			(object) array( 
+				'title' => 'Reykjavik #2', 
+				'lat' => 64.1,
+				'lng' => -22.201
+			), 
+			(object) array( 
+				'title' => 'Akureyri', 
+				'lat' => 65.6839,
+				'lng' => -18.1105
+			), 		
+		);
+		
+		foreach ( $points as $point ){
+	
+			$pid = self::factory()->post->create( array( 
+				'post_title' => $point->title
+			) );
+
+			$wpdb->insert( 
+				$table_name, 
+				array( 
+					'pid' => $pid, 
+					'lat' => $point->lat,
+					'lng'=> $point->lng
+				), 
+				array( 
+					'%d', 
+					'%f', 
+					'%f' 
+				) 
+			);
+		}
+
+		$args = array(
+		    	'post_type'           => 'post',    
+		    	'posts_per_page'      => 10,
+		    	'ignore_sticky_posts' => true,
+		    	'orderby'             => array( 'title' => 'DESC' ),		    
+				'geo_query' => array(
+					'table'         => 'custom_table', // Table name for the geo custom table.
+					'pid_col'       => 'pid',          // Column name for the post ID data
+					'lat_col'       => 'lat',          // Column name for the latitude data
+					'lng_col'       => 'lng',          // Column name for the longitude data 
+					'lat'           => 64.0,           // Latitude point
+					'lng'           => -22.0,          // Longitude point
+					'radius'        => 1,              // Find locations within a given radius (km)
+					'order'         => 'DESC',         // Order by distance
+					'distance_unit' => 111.045,        // Default distance unit (km per degree). Use 69.0 for statute miles per degree.
+					'context'       => '\\Birgir\\Geo\\GeoQueryPostCustomTableHaversine', // Default implementation, you can use your own here instead.
+				),
+		);
+
+		$query = new WP_Query( $args );
+
+		$this->assertSame( 1, count( $query->posts ) );
+		$this->assertSame( 'Reykjavik #1', $query->posts[0]->post_title );
+		$this->assertGreaterThan( 0, $query->posts[0]->distance_value );
+	}
+
+	/**
 	 * Tests fetching points within 1 km radius
 	 *
 	 */
@@ -55,6 +139,51 @@ class Test_Geo_Query extends WP_UnitTestCase {
 
 		$this->assertSame( 1, count( $query->posts ) );
 		$this->assertSame( 'Reykjavik #1', $query->posts[0]->post_title );
+	}
+
+	/**
+	 * Tests fetching points within 1 km radius
+	 *
+	 */
+	public function test_distance() {
+
+		$p1 = self::factory()->post->create( array( 
+			'post_title' => 'Reykjavik #1',
+		) );
+		add_post_meta( $p1, 'my_lat', '38.897147' );
+		add_post_meta( $p1, 'my_lng', '-77.043934' );
+
+
+		$args = array(
+		    	'post_type'           => 'post',    
+		    	'posts_per_page'      => 10,
+		    	'ignore_sticky_posts' => true,
+		    	'orderby'             => array( 'title' => 'DESC' ),		    
+			'geo_query' => array(
+				'lat'                =>  38.898556,                                // Latitude point
+		  		'lng'                =>  -77.037852,                               // Longitude point
+		        	'lat_meta_key'       =>  'my_lat',                          // Meta-key for the latitude data
+		        	'lng_meta_key'       =>  'my_lng',                          // Meta-key for the longitude data 
+		        	'radius'             =>  1,                                 // Find locations within a given radius (km)
+		        	'order'              =>  'DESC',                            // Order by distance
+		        	'distance_unit'      =>  111.045,                           // Default distance unit (km per degree). Use 69.0 for statute miles per degree.
+		        	'context'            => '\\Birgir\\Geo\\GeoQueryHaversine', // Default implementation, you can use your own here instead.
+    			),
+		);
+	
+		$query = new WP_Query( $args );
+
+		$actual_distance_value = 0;
+		while( $query->have_posts() ) {
+			$query->the_post();
+			$actual_distance_value = get_post_field( 'distance_value' );
+		} 
+
+		$expected_distance_value = .549;
+	
+		$error_ratio = ( abs( $actual_distance_value - $expected_distance_value ) / $expected_distance_value ) * 100;
+		
+		$this->assertTrue( .11 > $error_ratio );
 	}
 
 	/**

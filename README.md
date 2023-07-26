@@ -162,6 +162,9 @@ Check the unit test method `test_custom_table_in_wp_query()` as a more detailed 
 Any suggestions are welcomed.
 
 ### Changelog
+0.2.1 (2023-07-26)
+- Fix deprecated notice in PHP 8.1 #24
+
 0.2.0 (2020-04-25)
 - Support for fetching points from a custom table and doing Haversine formula in WP_Query.
 

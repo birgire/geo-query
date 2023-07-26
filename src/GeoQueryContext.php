@@ -11,6 +11,7 @@ namespace Birgir\Geo;
 
 class GeoQueryContext
 {
+    private $db;
 
    /**
     * Setup

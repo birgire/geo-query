@@ -11,7 +11,7 @@
         }
     ],
     "require" : {
-        "composer/installers" : "^1.0.0",
+        "composer/installers" : "^2.0.0",
         "php" : ">=5.3.3"
     },
     "autoload": {
@@ -19,6 +19,10 @@
    },
     "extra" : {
         "installer-name" : "geo-query"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
     }
 }
-

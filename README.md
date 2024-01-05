@@ -162,6 +162,10 @@ Check the unit test method `test_custom_table_in_wp_query()` as a more detailed 
 Any suggestions are welcomed.
 
 ### Changelog
+
+0.2.2 (2024-01-05)
+- Bump composer/installers to ^2.0.0. Props @wujekbogdan
+
 0.2.1 (2023-07-26)
 - Fix deprecated notice in PHP 8.1 #24
 

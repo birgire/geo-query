@@ -20,6 +20,7 @@ class GeoQueryHaversine extends GeoQueryAbstract implements GeoQueryInterface
     private $lng_meta_key;
     private $distance_unit;
     private $radius;
+    private $order;
 
 
    /**

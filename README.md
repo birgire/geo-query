@@ -163,6 +163,9 @@ Any suggestions are welcomed.
 
 ### Changelog
 
+0.2.3 (2024-10-29) 
+- Fix: Deprecated creation of dynamic property. Props @lukasbesch
+
 0.2.2 (2024-01-05)
 - Bump composer/installers to ^2.0.0. Props @wujekbogdan
 
